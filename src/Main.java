@@ -1,6 +1,5 @@
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
-import org.knowm.xchart.XYChartBuilder;
+import org.apache.commons.math3.distribution.NormalDistribution;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 import java.util.*;
 
@@ -8,23 +7,37 @@ public class Main {
 
     public static void main(String[] args) {
 
-        GraphDrawer drawer = new GraphDrawer(false);
+        var drawer = new GraphDrawer(false);
 
-        List<Integer> randomNumbers1 = new ArrayList<>();
-        List<Integer> randomNumbers2 = new ArrayList<>();
+        List<Double> randomNumbers = new ArrayList<>();
+        DescriptiveStatistics stats = new DescriptiveStatistics();
+        Map<Double, Integer> distribution = new HashMap<>();
 
-        Random random = new Random();
+        var random = new Random();
+        for (int i = 0; i < 10000; i++) {
 
-        for (int i = 0; i < 100; i++) {
+            var num = random.nextDouble();
 
-            randomNumbers1.add(random.nextInt(0,1000));
-            randomNumbers2.add(random.nextInt(0,1000));
+            randomNumbers.add(num);
+            stats.addValue(num);
+
+            int numInt = (int) (num * 10);
+            double numDouble = ((double) numInt) / 10;
+
+            if (distribution.containsKey(numDouble)) {
+
+                int frequency = distribution.get(numDouble);
+                distribution.put(numDouble, frequency + 1);
+            } else {
+
+                distribution.put(numDouble, 1);
+            }
         }
 
-        Collections.sort(randomNumbers1);
+        List<Double> doubleList = new ArrayList<>(distribution.keySet());
+        List<Integer> integerList = new ArrayList<>(distribution.values());
 
-        drawer.addChart(randomNumbers1, randomNumbers2);
-
+        drawer.addChart("Default distribution", doubleList, integerList);
         drawer.displayChart();
     }
 }
