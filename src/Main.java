@@ -1,5 +1,6 @@
-import org.apache.commons.math3.distribution.NormalDistribution;
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import generators.ExponentialRandomNumberGenerator;
+import generators.NormalDistributionNumberGenerator;
+import generators.NumberGenerator;
 
 import java.util.*;
 
@@ -7,37 +8,30 @@ public class Main {
 
     public static void main(String[] args) {
 
-        var drawer = new GraphDrawer(false);
+        GraphDrawer drawer = new GraphDrawer(false);
+
+        NumberGenerator generator = createGenerator();
+        Distribution distribution = new Distribution();
 
         List<Double> randomNumbers = new ArrayList<>();
-        DescriptiveStatistics stats = new DescriptiveStatistics();
-        Map<Double, Integer> distribution = new HashMap<>();
 
-        var random = new Random();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000000; i++) {
 
-            var num = random.nextDouble();
+            var num = generator.next();
 
             randomNumbers.add(num);
-            stats.addValue(num);
-
-            int numInt = (int) (num * 10);
-            double numDouble = ((double) numInt) / 10;
-
-            if (distribution.containsKey(numDouble)) {
-
-                int frequency = distribution.get(numDouble);
-                distribution.put(numDouble, frequency + 1);
-            } else {
-
-                distribution.put(numDouble, 1);
-            }
+            distribution.add(num);
         }
 
-        List<Double> doubleList = new ArrayList<>(distribution.keySet());
-        List<Integer> integerList = new ArrayList<>(distribution.values());
-
-        drawer.addChart("Default distribution", doubleList, integerList);
+        drawer.addChart("Default distribution",
+                distribution.getKeys(),
+                distribution.getValues());
         drawer.displayChart();
+    }
+
+    private static NumberGenerator createGenerator() {
+
+//        return new ExponentialRandomNumberGenerator(1.0);
+        return new NormalDistributionNumberGenerator(1, 0);
     }
 }

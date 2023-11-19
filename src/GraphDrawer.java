@@ -30,6 +30,7 @@ public class GraphDrawer {
         }
 
         chart.getStyler().setMarkerSize(8);
+        chart.getStyler().setYAxisMin(0.0);
     }
 
     public void addChart(String chartName, List<Double> x, List<Integer> y) {
