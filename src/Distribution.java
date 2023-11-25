@@ -13,8 +13,7 @@ public class Distribution {
 
         stats.addValue(num);
 
-        int numInt = (int) (num * 10);
-        double numDouble = ((double) numInt) / 10;
+        double numDouble = ((double) (int) (num * 10)) / 10;
 
         if (distributionMap.containsKey(numDouble)) {
 

@@ -24,7 +24,7 @@ public class NormalDistributionNumberGenerator implements NumberGenerator {
     @Override
     public Double next() {
 
-        return (randomSum() - valuesInSumAmount / 2) * sigma + a;
+        return ((randomSum() - valuesInSumAmount / 2) * sigma + a) / 6;
     }
 
     private double randomSum() {
