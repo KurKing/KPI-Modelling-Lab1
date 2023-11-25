@@ -32,6 +32,6 @@ public class Main {
     private static NumberGenerator createGenerator() {
 
 //        return new ExponentialRandomNumberGenerator(1.0);
-        return new NormalDistributionNumberGenerator(1, 0);
+        return new NormalDistributionNumberGenerator(2, 10);
     }
 }
