@@ -1,4 +1,4 @@
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+package distribution;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,14 +6,21 @@ import java.util.Map;
 
 public class Distribution {
 
-    private final DescriptiveStatistics stats = new DescriptiveStatistics();
+    private final int segment;
+
+    private final BinnedStatistics stats = new BinnedStatistics(30);
     private final Map<Double, Integer> distributionMap = new HashMap<>();
+
+    public Distribution(int segment) {
+
+        this.segment = segment;
+    }
 
     public void add(Double num) {
 
         stats.addValue(num);
 
-        double numDouble = ((double) (int) (num * 10)) / 10;
+        double numDouble = ((double) (int) (num * segment)) / segment;
 
         if (distributionMap.containsKey(numDouble)) {
 
@@ -35,7 +42,7 @@ public class Distribution {
         return distributionMap.values().stream().toList();
     }
 
-    public DescriptiveStatistics getStats() {
+    public BinnedStatistics getStats() {
         return stats;
     }
 }

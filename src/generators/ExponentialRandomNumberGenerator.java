@@ -1,8 +1,11 @@
 package generators;
 
-public class ExponentialRandomNumberGenerator extends RandomNumberGenerator {
+import java.util.Random;
+
+public class ExponentialRandomNumberGenerator implements NumberGenerator {
 
     private final double lambda;
+    private final Random random = new Random();
 
     public ExponentialRandomNumberGenerator(double lambda) {
 
@@ -12,6 +15,6 @@ public class ExponentialRandomNumberGenerator extends RandomNumberGenerator {
     @Override
     public Double next() {
 
-        return -Math.log(super.next()) / lambda;
+        return -1 * Math.log(random.nextDouble()) / lambda;
     }
 }
