@@ -1,8 +1,10 @@
 import chisquare.ChiSquaredCounter;
 import chisquare.ExponentialChiSquaredCounter;
+import chisquare.LinearChiSquaredCounter;
 import chisquare.NormalChiSquaredCounter;
 import distribution.Distribution;
 import generators.ExponentialRandomNumberGenerator;
+import generators.LinearRandomNumberGenerator;
 import generators.NormalDistributionNumberGenerator;
 import generators.NumberGenerator;
 
@@ -46,8 +48,8 @@ public class Main {
     private static NumberGenerator createGenerator() {
 
 //        return new ExponentialRandomNumberGenerator(0.2);
-        return new NormalDistributionNumberGenerator(0.5, 10);
-//        return new LinearRandomNumberGenerator();
+//        return new NormalDistributionNumberGenerator(0.5, 10);
+        return new LinearRandomNumberGenerator();
     }
 
     private static ChiSquaredCounter createChiSquaredCounter(Map<Integer, Integer> frequencyMap, double min, double max) {
@@ -59,13 +61,19 @@ public class Main {
 //                min,
 //                max);
 
-        return new NormalChiSquaredCounter(frequencyMap,
+//        return new NormalChiSquaredCounter(frequencyMap,
+//                min,
+//                max,
+//                30,
+//                10000,
+//                0.5,
+//                10
+//                );
+
+        return new LinearChiSquaredCounter(frequencyMap,
                 min,
                 max,
                 30,
-                10000,
-                0.5,
-                10
-                );
+                10000);
     }
 }
