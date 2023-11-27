@@ -1,7 +1,9 @@
 import chisquare.ChiSquaredCounter;
 import chisquare.ExponentialChiSquaredCounter;
+import chisquare.NormalChiSquaredCounter;
 import distribution.Distribution;
 import generators.ExponentialRandomNumberGenerator;
+import generators.NormalDistributionNumberGenerator;
 import generators.NumberGenerator;
 
 import java.text.DecimalFormat;
@@ -43,18 +45,27 @@ public class Main {
 
     private static NumberGenerator createGenerator() {
 
-        return new ExponentialRandomNumberGenerator(0.2);
-//        return new NormalDistributionNumberGenerator(0.5, 10);
+//        return new ExponentialRandomNumberGenerator(0.2);
+        return new NormalDistributionNumberGenerator(0.5, 10);
 //        return new LinearRandomNumberGenerator();
     }
 
     private static ChiSquaredCounter createChiSquaredCounter(Map<Integer, Integer> frequencyMap, double min, double max) {
 
-        return new ExponentialChiSquaredCounter(frequencyMap,
-               30,
-               0.2,
-                10000,
+//        return new ExponentialChiSquaredCounter(frequencyMap,
+//               30,
+//               0.2,
+//                10000,
+//                min,
+//                max);
+
+        return new NormalChiSquaredCounter(frequencyMap,
                 min,
-                max);
+                max,
+                30,
+                10000,
+                0.5,
+                10
+                );
     }
 }

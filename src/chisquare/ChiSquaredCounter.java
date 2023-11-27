@@ -9,11 +9,23 @@ abstract public class ChiSquaredCounter {
     protected final int numBins;
     protected final int sampleSize;
 
-    public ChiSquaredCounter(Map<Integer, Integer> frequencyMap, int numBins, int sampleSize) {
+    protected final double min;
+    protected final double max;
+    protected final double binWidth;
+
+    public ChiSquaredCounter(Map<Integer, Integer> frequencyMap,
+                             double min,
+                             double max,
+                             int numBins,
+                             int sampleSize) {
 
         this.frequencyMap = frequencyMap;
         this.numBins = numBins;
         this.sampleSize = sampleSize;
+
+        this.min = min;
+        this.max = max;
+        binWidth = (max - min) / numBins;
     }
 
     public double calculateChiSquared() {

@@ -7,8 +7,6 @@ import java.util.Map;
 public class ExponentialChiSquaredCounter extends ChiSquaredCounter {
 
     private final double lambda;
-    private final double min;
-    private final double max;
 
     public ExponentialChiSquaredCounter(Map<Integer, Integer> frequencyMap, 
                                         int numBins, 
@@ -17,19 +15,15 @@ public class ExponentialChiSquaredCounter extends ChiSquaredCounter {
                                         double min,
                                         double max) {
 
-        super(frequencyMap, numBins, sampleSize);
+        super(frequencyMap, min, max, numBins, sampleSize);
 
         this.lambda = lambda;
-        this.min = min;
-        this.max = max;
     }
 
     @Override
     protected List<Double> calculateExpectedFrequencies() {
 
         List<Double> expectedFrequencies = new ArrayList<>();
-
-        double binWidth = (max - min) / numBins;
 
         for (int i = 0; i < numBins; i++) {
 
